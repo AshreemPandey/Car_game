@@ -1,0 +1,6 @@
+﻿  main.cpp
+main.obj : error LNK2005: "public: void __cdecl Game::update(void)" (?update@Game@@QEAAXXZ) already defined in Game.obj
+main.obj : error LNK2005: "public: virtual __cdecl Game::~Game(void)" (??1Game@@UEAA@XZ) already defined in Game.obj
+main.obj : error LNK2005: "public: __cdecl Game::Game(void)" (??0Game@@QEAA@XZ) already defined in Game.obj
+main.obj : error LNK2005: "private: void __cdecl Game::initVariables(void)" (?initVariables@Game@@AEAAXXZ) already defined in Game.obj
+C:\Users\ASUS\source\repos\2D_car_game\Game\x64\Release\Game.exe : fatal error LNK1169: one or more multiply defined symbols found
