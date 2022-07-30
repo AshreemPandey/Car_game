@@ -7,7 +7,6 @@ float sElapsedTime;
 
 void drawBG(sf::RenderWindow& w,sf::Clock &clock)
 { 
-
 	sf::RectangleShape rect;
 	rect.setSize(sf::Vector2f(8, 8));
 	float fCarPos = 0.0f;
