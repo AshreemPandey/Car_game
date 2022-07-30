@@ -1,25 +1,31 @@
 #include<SFML/Graphics.hpp>
+#include<iostream>
 
 int height = 768;
 int width = 1050;
+float sElapsedTime;
 
-void drawBG(sf::RenderWindow& w)
-{
-	float fCarPos = 0.0f;
-	float middlePoint = 0.5f;
-	float roadW = 0.6f;
-	float clipW = 0.15 * roadW;
-	roadW *= 0.5;
-	float LGrass = (middlePoint - roadW - clipW) * width;
-	float RGrass = (middlePoint + roadW + clipW) * width;
-	float RClip = (middlePoint + roadW) * width;
-	float LClip = (middlePoint - roadW) * width;
+void drawBG(sf::RenderWindow& w,sf::Clock &clock)
+{ 
+
 	sf::RectangleShape rect;
 	rect.setSize(sf::Vector2f(8, 8));
+	float fCarPos = 0.0f;
+	float middlePoint = 0.5f;
+	float fDistance = 0.0f;
+	float fElapsedTime = 0.0f;
 	for (int y = 0; y < height / 2; y++)
 	{
 		for (int x = 0; x < width; x++)
 		{
+			float fperspective = y / (height / 2.0f);
+			float roadW =0.1f + fperspective*0.8f;
+			float clipW = 0.15 * roadW;
+			roadW *= 0.5;
+			float LGrass = (middlePoint - roadW - clipW) * width;
+			float RGrass = (middlePoint + roadW + clipW) * width;
+			float RClip = (middlePoint + roadW) * width;
+			float LClip = (middlePoint - roadW) * width;
 			rect.setPosition(x, y + height / 2);
 			if (x > 0 && x < LGrass)
 			{
@@ -61,12 +67,26 @@ void drawBG(sf::RenderWindow& w)
     sCar.setTextureRect(sf::IntRect(0, 0, 500, 500));
     sCar.setPosition(width/2+(fCarPos*width)/2-300, height / 2+80);
 	w.draw(sCar);
+	sElapsedTime= clock.getElapsedTime().asSeconds();
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+	{
+		fDistance += sElapsedTime * 10.0f;
+	}
+	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+	{
+		fDistance += sElapsedTime * 2.0f;
+	}
+	else
+	{
+		fDistance += sElapsedTime * 4.0f;
+	}
 }
 
 int main()
 {
 	sf::RenderWindow app(sf::VideoMode(width, height), "Car Game");
-	app.setFramerateLimit(60);
+	app.setFramerateLimit(80);
+	sf::Clock clock;
 	while (app.isOpen())
 	{
 		sf::Event e;
@@ -78,7 +98,7 @@ int main()
 			}
 		}
 		app.clear();
-		drawBG(app);
+		drawBG(app,clock);
 		app.display();
 	}
 	return 0;
