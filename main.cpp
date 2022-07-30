@@ -1,7 +1,7 @@
 #include<SFML/Graphics.hpp>
 
 int height = 768;
-int width = 1050;
+int width = 1040;
 
 void drawBG(sf::RenderWindow& w)
 {
